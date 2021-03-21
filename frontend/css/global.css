@@ -1,0 +1,38 @@
+img {
+    display: block;
+    margin: auto;
+}
+
+li a {
+    text-decoration: none;
+    /* color: #000000; */
+}
+
+.btn {
+    background-color: #3493eb;
+    color: #ffffff;
+    padding: 1px 6px;
+    text-decoration: none;
+    box-sizing: border-box;
+    border-radius: 25px 40px 40px 25px;
+}
+
+body {
+    padding-left: 4%;
+    padding-bottom: 4%;
+    font-family: "Fraunces", serif;
+}
+
+textarea {
+    width: 100%;
+}
+
+.mainWidth {
+    width: 30em;
+}
+
+/* 
+.buttons button {
+    margin-right: 3em;
+    margin
+} */

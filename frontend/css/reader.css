@@ -1,0 +1,12 @@
+* {
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.qstndiv {
+    margin: 10px;
+}
+
+#submit_btn {
+    background: #0154f7;
+    color: #ffffff;
+}

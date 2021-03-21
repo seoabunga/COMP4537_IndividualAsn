@@ -1,0 +1,27 @@
+* {
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#add_btn {
+    background: #68bb59;
+    color:#ffffff;
+}
+
+#save_btn {
+    background: #0154f7;
+    color: #ffffff;
+}
+
+#del_btn {
+    background: #b90020;
+    color: #ffffff;
+}
+
+.qstn, .optndiv {
+    display: block;
+    margin: 10px;
+}
+
+.optnbtn {
+    float: left;
+}
