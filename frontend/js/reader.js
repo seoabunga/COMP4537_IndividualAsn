@@ -1,45 +1,47 @@
-const xhttp = new XMLHttpRequest();
-const path = "http://localhost:3000";
+const addr = "https://brianseo.mywhc.ca/COMP4537/asn1/quotes/quotes";
 
-// makes get request for getting all quotes
 function getAllQuotes(){
+    let xhttp = new XMLHttpRequest();
+    
+    xhttp.open("GET", addr, true);
+    xhttp.setRequestHeader("Content-Type", "application/json");
+    xhttp.send();
+    
     xhttp.onreadystatechange = function (){
     	if (this.readyState == 4 && this.status == 200) {
             let arr = JSON.parse(this.responseText);
             document.getElementById("quotesdiv").innerHTML = "";
 
     		for(let i = 0; i < arr.length; i++) {
-                render(arr[i]);
+                readFromDB(arr[i]);
      		}
     	}
     }
-	
-    xhttp.open("GET", path + "/quotes", true);
-    xhttp.send();
 }
 
-// makes get request for getting the most recent quote
 function getRecentQuotes(){
+    let xhttp = new XMLHttpRequest();
+    
+    xhttp.open("GET", addr + "/recent", true);
+    xhttp.setRequestHeader("Content-Type", "application/json");
+    xhttp.send();
+    
     xhttp.onreadystatechange = function (){
     	if (this.readyState == 4 && this.status == 200) {
 		    let arr = JSON.parse(this.responseText);
             document.getElementById("quotesdiv").innerHTML = ""; 
 
     		for(let i = 0; i < arr.length; i++) {
-         		render(arr[i])
+         		readFromDB(arr[i])
      		}
     	}
     }
-	
-    xhttp.open("GET", path + "/quotes/recent", true);
-    xhttp.send();
 }
 
-// renders dom elements for each quote/author
-function render(arr){
-    let qid = arr.QuoteID;
-    let text = arr.Body;
-    let source = arr.Source;
+function readFromDB(quote){
+    let qid = quote.QuoteID;
+    let text = quote.Body;
+    let source = quote.Source;
 
     let qdiv = document.createElement("div");
     let qtext = document.createElement("textarea");
@@ -70,7 +72,6 @@ function render(arr){
 
     slabel.innerHTML = "Source " + qid;
 
-    // appending elements
     qdiv.appendChild(qlabel);
     qdiv.appendChild(qtext);
     sdiv.appendChild(slabel);

@@ -2,19 +2,19 @@ const express = require('express');
 const mysql = require('mysql');
 const path = require('path');
 
+const root = '/COMP4537/asn1/quotes';
+
 const app = express();
 
 const port = process.env.PORT || 3000;
 
 const db = mysql.createConnection({
     host: "localhost",
-    user: "brianseo_admin",
-    // user: "root",
+    user: "brianseo_4537",
     password: "Password4537",
     database: "brianseo_webdevdb"
 })
 
-// Connect to MySQL to run SQL Queries
 db.connect(function(err) {
     if(err) {
         throw err;
@@ -23,9 +23,6 @@ db.connect(function(err) {
     }
 })
 
-// https://stackoverflow.com/questions/16111386/error-cannot-find-module-html/24140944
-// Loads the index in directory
-app.use(express.static(path.join(__dirname)));
 app.use(express.json());
 app.use(function(req, res, next){
     res.header("Access-Control-Allow-Origin", "*");
@@ -35,8 +32,10 @@ app.use(function(req, res, next){
 })
 
 // SERVER
+app.use(express.static(__dirname + 'public'));
+
 // [GET] /quotes - gets all quotes stored
-app.get('/quotes', function(req, res) {
+app.get(root + '/quotes', function(req, res) {
     db.query(
             `SELECT * FROM quote`
             , function(err, result) {
@@ -48,9 +47,9 @@ app.get('/quotes', function(req, res) {
 })
 
 // [GET] /quotes/recent - gets quotes ordered by most recent
-app.get('/quotes/recent', function(req, res) {
+app.get(root + '/quotes/recent', function(req, res) {
     db.query(
-            `SELECT * from Quote ORDER BY QuoteID DESC`
+            `SELECT * from quote ORDER BY QuoteID DESC LIMIT 1`
             , function(err, result) {
         if (err){
             throw err;
@@ -61,12 +60,12 @@ app.get('/quotes/recent', function(req, res) {
 
 
 // [POST] /quotes - adds a quote
-app.post('/quotes', function(req, res) {
+app.post(root + '/quotes', function(req, res) {
     let quote = req.body.QuoteText;
     let source = req.body.Source;
 
     db.query(
-        `INSERT INTO Quote (Body, Source) VALUES("${quote}", "${source}")`
+        `INSERT INTO quote (Body, Source) VALUES("${quote}", "${source}")`
         , function(err, result) {
         if (err){
             throw err;
@@ -77,13 +76,13 @@ app.post('/quotes', function(req, res) {
 })
 
 // [PUT] /quotes - updates a quote
-app.put('/quotes', function(req, res) {
+app.put(root + '/quotes', function(req, res) {
     let quote = req.body.QuoteText;
 	let id = req.body.QuoteID;
 	let source = req.body.Source;
 
     db.query(
-        `UPDATE Quote SET Body = "${quote}", Source = "${source}" WHERE QuoteID = ${id}`
+        `UPDATE quote SET Body = "${quote}", Source = "${source}" WHERE QuoteID = ${id}`
         , function(err, result) {
         if (err){
             throw err;
@@ -93,11 +92,11 @@ app.put('/quotes', function(req, res) {
 })
 
 // [DELETE] /quotes - deletes a quote
-app.delete('/quotes', function(req, res) {
+app.delete(root + '/quotes', function(req, res) {
 	let id = parseInt(req.body.QuoteID);
 
     db.query(
-        `DELETE FROM Quote WHERE QuoteID = ${id}`
+        `DELETE FROM quote WHERE QuoteID = ${id}`
         , function(err, result) {
         if (err){
             throw err;

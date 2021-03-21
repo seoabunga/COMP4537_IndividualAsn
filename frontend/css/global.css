@@ -16,23 +16,3 @@ li a {
     box-sizing: border-box;
     border-radius: 25px 40px 40px 25px;
 }
-
-body {
-    padding-left: 4%;
-    padding-bottom: 4%;
-    font-family: "Fraunces", serif;
-}
-
-textarea {
-    width: 100%;
-}
-
-.mainWidth {
-    width: 30em;
-}
-
-/* 
-.buttons button {
-    margin-right: 3em;
-    margin
-} */
